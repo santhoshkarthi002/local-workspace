@@ -1,122 +1,110 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { Metrics } from './components/Metrics';
+import { About } from './components/About';
+import { SkillsShowcase } from './components/SkillsShowcase';
+import { ExperienceTimeline } from './components/ExperienceTimeline';
+import { ProjectsShowcase } from './components/ProjectsShowcase';
+import { Education } from './components/Education';
+import { Contact } from './components/Contact';
+import { Footer } from './components/Footer';
+import { ResumeModal } from './components/ResumeModal';
+import { CheckCircle2 } from 'lucide-react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+export function App() {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const saved = localStorage.getItem('portfolio-theme');
+    return (saved as 'dark' | 'light') || 'dark';
+  });
+
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 4000);
+  };
+
+  const handleCopyEmail = (email: string) => {
+    navigator.clipboard.writeText(email).then(() => {
+      setEmailCopied(true);
+      showToast('Email address copied to clipboard!');
+      setTimeout(() => setEmailCopied(false), 3000);
+    }).catch(() => {
+      showToast(`Copy failed: ${email}`);
+    });
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="portfolio-app-root">
+      {/* Sticky Top Navigation */}
+      <Navbar
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onOpenResume={() => setIsResumeOpen(true)}
+      />
 
-      <div className="ticks"></div>
+      {/* Main Single-Page Sections */}
+      <main className="main-content">
+        <Hero
+          onOpenResume={() => setIsResumeOpen(true)}
+          onCopyEmail={handleCopyEmail}
+          emailCopied={emailCopied}
+        />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <Metrics />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <About />
+
+        <SkillsShowcase />
+
+        <ExperienceTimeline />
+
+        <ProjectsShowcase />
+
+        <Education />
+
+        <Contact
+          onCopyEmail={handleCopyEmail}
+          emailCopied={emailCopied}
+          onShowToast={showToast}
+        />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Interactive Resume Modal */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <aside className="toast-container" role="status" aria-live="polite">
+          <div className="toast">
+            <CheckCircle2 size={18} color="var(--accent-cyan)" />
+            <span>{toastMessage}</span>
+          </div>
+        </aside>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;

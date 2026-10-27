@@ -20,7 +20,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Reactivity Demo', href: '#reactivity-demo' },
     { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
   ];
@@ -36,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="brand-badge">KG</div>
           <div className="brand-text">
             <span className="brand-name">Karthikeyan G</span>
-            <span className="brand-role">React & SolidJS Dev</span>
+            <span className="brand-role">Full Stack Developer</span>
           </div>
         </a>
 
@@ -67,15 +66,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenResume}
             className="btn btn-secondary btn-sm resume-nav-btn"
-            aria-label="Open formatted resume"
+            aria-label="Open resume view"
           >
-            <FileText size={16} />
+            <FileText size={15} />
             <span>Resume</span>
           </button>
 
           <a href="#contact" className="btn btn-primary btn-sm">
-            <span>Hire Me</span>
-            <ArrowUpRight size={16} />
+            <span>Let's Talk</span>
+            <ArrowUpRight size={15} />
           </a>
 
           <button
@@ -118,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="btn btn-primary"
             style={{ width: '100%' }}
           >
-            <span>Get in Touch</span>
+            <span>Let's Talk</span>
           </a>
         </div>
       </div>

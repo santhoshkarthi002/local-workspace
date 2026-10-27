@@ -4,12 +4,16 @@ import {
   ExternalLink, 
   CheckCircle2, 
   X, 
-  Sparkles,
-  Layers,
-  ArrowRight
+  ArrowRight,
+  Code2,
+  HelpCircle,
+  Lightbulb,
+  UserCheck,
+  Cpu
 } from 'lucide-react';
 import { resumeData, ProjectItem } from '../data/resumeData';
 import iotImg from '../assets/iot_dashboard.jpg';
+import fullstackImg from '../assets/fullstack_app.jpg';
 import designSystemImg from '../assets/design_system.jpg';
 import './ProjectsShowcase.css';
 
@@ -19,6 +23,7 @@ export const ProjectsShowcase: React.FC = () => {
 
   const getImage = (imgName: string) => {
     if (imgName.includes('iot')) return iotImg;
+    if (imgName.includes('fullstack')) return fullstackImg;
     return designSystemImg;
   };
 
@@ -27,13 +32,13 @@ export const ProjectsShowcase: React.FC = () => {
       <div className="section-header">
         <span className="section-tag">
           <FolderGit2 size={14} />
-          <span>Case Studies &amp; Implementations</span>
+          <span>Featured Projects &amp; Case Studies</span>
         </span>
         <h2 className="section-title">
           Featured <span className="gradient-text">Projects &amp; Solutions</span>
         </h2>
         <p className="section-subtitle">
-          Real-world enterprise solutions built on React.js, SolidJS, real-time IoT architectures, and fine-grained state management.
+          Representative software engineering solutions demonstrating practical full-stack and frontend development capabilities.
         </p>
       </div>
 
@@ -55,6 +60,18 @@ export const ProjectsShowcase: React.FC = () => {
             <div className="project-body">
               <h3 className="project-title">{project.title}</h3>
               <p className="project-desc">{project.description}</p>
+
+              {/* Problem / Solution Overview */}
+              <div className="project-brief-box">
+                <div className="brief-row">
+                  <span className="brief-label">Problem:</span>
+                  <span className="brief-val">{project.problem}</span>
+                </div>
+                <div className="brief-row">
+                  <span className="brief-label">Solution:</span>
+                  <span className="brief-val">{project.solution}</span>
+                </div>
+              </div>
 
               {/* Highlights */}
               <ul className="project-highlights-list">
@@ -82,7 +99,7 @@ export const ProjectsShowcase: React.FC = () => {
                   className="btn btn-secondary btn-sm"
                   style={{ width: '100%' }}
                 >
-                  <span>View Technical Details &amp; Architecture</span>
+                  <span>Technical Details &amp; Architecture</span>
                   <ArrowRight size={15} />
                 </button>
               </div>
@@ -123,38 +140,55 @@ export const ProjectsShowcase: React.FC = () => {
                 style={{
                   width: '100%',
                   borderRadius: '12px',
-                  maxHeight: '300px',
+                  maxHeight: '280px',
                   objectFit: 'cover',
                   border: '1px solid var(--border-subtle)'
                 }}
               />
 
-              <div>
-                <h4 style={{ fontSize: '1.1rem', marginBottom: '8px', color: 'var(--text-main)' }}>
-                  Architectural Overview
+              {/* Role & Responsibilities */}
+              <div className="modal-section-box">
+                <h4 className="modal-sub-heading">
+                  <UserCheck size={18} color="var(--accent-cyan)" />
+                  <span>My Role &amp; Responsibilities</span>
                 </h4>
-                <p style={{ color: 'var(--text-muted)', lineHeight: '1.65' }}>
-                  {selectedProject.longDescription}
+                <p style={{ color: 'var(--text-main)', fontSize: '0.94rem', lineHeight: '1.6' }}>
+                  {selectedProject.role}
                 </p>
               </div>
 
-              <div>
-                <h4 style={{ fontSize: '1.05rem', marginBottom: '10px', color: 'var(--text-main)' }}>
-                  Key Engineering Wins &amp; Metrics
+              {/* Problem & Solution */}
+              <div className="modal-section-box">
+                <h4 className="modal-sub-heading">
+                  <Lightbulb size={18} color="var(--accent-amber)" />
+                  <span>Problem Statement &amp; Solution Overview</span>
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.92rem' }}>
+                  <p><strong>Challenge:</strong> <span style={{ color: 'var(--text-muted)' }}>{selectedProject.problem}</span></p>
+                  <p><strong>Engineered Solution:</strong> <span style={{ color: 'var(--text-muted)' }}>{selectedProject.solution}</span></p>
+                </div>
+              </div>
+
+              {/* Key Technical Decisions */}
+              <div className="modal-section-box">
+                <h4 className="modal-sub-heading">
+                  <Cpu size={18} color="var(--accent-purple)" />
+                  <span>Key Technical Decisions</span>
                 </h4>
                 <ul className="project-highlights-list">
-                  {selectedProject.highlights.map((h, i) => (
+                  {selectedProject.keyDecisions.map((decision, i) => (
                     <li key={i} className="project-highlight-item" style={{ fontSize: '0.92rem' }}>
                       <CheckCircle2 size={16} />
-                      <span>{h}</span>
+                      <span>{decision}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
+              {/* Core Tech Stack */}
               <div>
-                <h4 style={{ fontSize: '1.05rem', marginBottom: '10px', color: 'var(--text-main)' }}>
-                  Core Tech Stack
+                <h4 style={{ fontSize: '1.02rem', marginBottom: '10px', color: 'var(--text-main)' }}>
+                  Technologies Used
                 </h4>
                 <div className="project-tech-tags">
                   {selectedProject.techStack.map((tech) => (
@@ -165,9 +199,9 @@ export const ProjectsShowcase: React.FC = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '14px' }}>
                 <a href="#contact" onClick={() => setSelectedProject(null)} className="btn btn-primary" style={{ flex: 1 }}>
-                  <span>Discuss This Architecture with Karthikeyan</span>
+                  <span>Discuss This Project with Karthikeyan</span>
                   <ExternalLink size={16} />
                 </a>
               </div>

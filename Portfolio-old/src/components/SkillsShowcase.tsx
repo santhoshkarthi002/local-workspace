@@ -1,133 +1,155 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, 
   Cpu, 
-  Zap, 
-  CheckCircle, 
+  Sparkles, 
   Layers, 
+  Database, 
+  Server, 
+  Code2, 
   Activity, 
-  Code2 
+  Terminal,
+  CheckCircle2
 } from 'lucide-react';
-import { resumeData, SkillItem } from '../data/resumeData';
+import { resumeData, SkillCategory } from '../data/resumeData';
 import './SkillsShowcase.css';
 
 export const SkillsShowcase: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
-  const { skills, skillsCategories } = resumeData;
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const { skillCategories } = resumeData;
 
-  const filteredSkills = activeCategory === 'all'
-    ? skills
-    : skills.filter((s: SkillItem) => s.category === activeCategory);
+  const categoryIcons: Record<string, React.ReactNode> = {
+    frontend: <Code2 size={16} color="var(--accent-cyan)" />,
+    backend: <Server size={16} color="var(--accent-emerald)" />,
+    databases: <Database size={16} color="var(--accent-purple)" />,
+    state: <Layers size={16} color="var(--accent-blue)" />,
+    dataviz: <Activity size={16} color="var(--accent-amber)" />,
+    tools: <Terminal size={16} color="var(--accent-pink)" />
+  };
+
+  const filteredCategories = selectedCategory === 'all'
+    ? skillCategories
+    : skillCategories.filter((c: SkillCategory) => c.id === selectedCategory);
 
   return (
     <section id="skills" className="skills-section section-wrapper">
       <div className="section-header">
         <span className="section-tag">
           <Cpu size={14} />
-          <span>Technical Expertise</span>
+          <span>Technical Skills</span>
         </span>
         <h2 className="section-title">
-          Skills, Tools &amp; <span className="gradient-text">Architecture</span>
+          Technical Skills &amp; <span className="gradient-text">Engineering Stack</span>
         </h2>
         <p className="section-subtitle">
-          Engineered across 3+ years of building production-grade enterprise frontend applications.
+          Demonstrated competence across frontend engineering, backend services, relational databases, and developer tooling.
         </p>
       </div>
 
       {/* Category Filter Pills */}
       <div className="skills-tabs-container">
-        {skillsCategories.map((cat) => (
+        <button
+          onClick={() => setSelectedCategory('all')}
+          className={`skills-tab-btn ${selectedCategory === 'all' ? 'active' : ''}`}
+        >
+          All Domains
+        </button>
+        {skillCategories.map((cat: SkillCategory) => (
           <button
             key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
-            className={`skills-tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(cat.id)}
+            className={`skills-tab-btn ${selectedCategory === cat.id ? 'active' : ''}`}
           >
             {cat.label}
           </button>
         ))}
       </div>
 
-      {/* Skills Grid */}
-      <div className="skills-grid">
-        {filteredSkills.map((skill: SkillItem) => (
-          <div key={skill.name} className="glass-card skill-card">
-            <div className="skill-card-top">
-              <span className="skill-name">{skill.name}</span>
-              {skill.isKeySpecialization && (
-                <span className="skill-special-badge">
-                  <Sparkles size={11} />
-                  <span>Core Tech</span>
+      {/* Skill Categories Grid */}
+      <div className="skills-categories-grid">
+        {filteredCategories.map((cat: SkillCategory) => (
+          <div key={cat.id} className="glass-card skill-domain-card">
+            <div className="domain-card-header">
+              <div className="domain-icon-title">
+                <span className="domain-icon-wrap">
+                  {categoryIcons[cat.id] || <Cpu size={16} />}
                 </span>
-              )}
-            </div>
-
-            <div className="skill-level-bar-track">
-              <div
-                className="skill-level-bar-fill"
-                style={{ width: `${skill.level}%` }}
-              ></div>
-            </div>
-
-            <div className="skill-card-bottom">
-              <span className="tech-chip" style={{ padding: '2px 8px', fontSize: '0.72rem' }}>
-                {skill.tag}
+                <h3 className="domain-title">{cat.label}</h3>
+              </div>
+              <span className="domain-count-badge">
+                {cat.skills.length} Technologies
               </span>
-              <span className="font-mono">{skill.level}% Proficiency</span>
+            </div>
+
+            <div className="domain-skills-wrap">
+              {cat.skills.map((skill) => (
+                <div
+                  key={skill.name}
+                  className={`skill-item-badge ${skill.highlight ? 'highlight' : ''}`}
+                >
+                  <span className="skill-name">{skill.name}</span>
+                  {skill.tag && (
+                    <span className="skill-tag-pill">{skill.tag}</span>
+                  )}
+                  {skill.highlight && (
+                    <Sparkles size={12} className="skill-sparkle-icon" />
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Dual React & SolidJS Architecture Acumen Card */}
+      {/* Architecture Philosophy Banner */}
       <div className="tech-philosophy-card">
         <div className="philosophy-info">
-          <span className="philosophy-tag">Specialized Engineering Perspective</span>
+          <span className="philosophy-tag">Full Stack Development Approach</span>
           <h3 className="philosophy-title">
-            The Advantage of Dual Mastery: <span className="gradient-text">React.js &amp; SolidJS</span>
+            Engineering for <span className="gradient-text">Maintainability &amp; Scale</span>
           </h3>
           <p className="philosophy-desc">
-            Having deep proficiency in both React and SolidJS gives me an architectural edge. While React provides battle-tested hooks, extensive enterprise libraries, and vast ecosystem strength, SolidJS eliminates the Virtual DOM entirely through fine-grained reactive signals that update only the exact target DOM nodes.
+            Strong typing with TypeScript, component modularity in React, clear RESTful API contracts in Node.js, and strictly normalized PostgreSQL and MySQL schemas.
           </p>
         </div>
 
         <div className="philosophy-points">
           <div className="point-card">
             <div className="point-title">
-              <Zap size={16} color="var(--accent-cyan)" />
-              <span>Fine-Grained Signals</span>
+              <Code2 size={16} color="var(--accent-cyan)" />
+              <span>Strict TypeScript</span>
             </div>
             <p className="point-sub">
-              Zero VDOM diffing overhead in SolidJS ensures lightning-fast micro-updates on high-frequency live data feeds.
+              Strong typing across props, API responses, and database models prevents runtime exceptions.
             </p>
           </div>
 
           <div className="point-card">
             <div className="point-title">
-              <Layers size={16} color="var(--accent-purple)" />
-              <span>Component Modularity</span>
+              <Server size={16} color="var(--accent-emerald)" />
+              <span>Reliable REST APIs</span>
             </div>
             <p className="point-sub">
-              Standardized clean interfaces, strict TypeScript generics, and hooks-driven logic for high maintainability.
+              Express.js routing, middleware validations, and standardized JSON responses.
             </p>
           </div>
 
           <div className="point-card">
             <div className="point-title">
-              <Activity size={16} color="var(--accent-emerald)" />
-              <span>State Caching &amp; Sync</span>
+              <Database size={16} color="var(--accent-purple)" />
+              <span>Relational Consistency</span>
             </div>
             <p className="point-sub">
-              Leveraging React Query and Redux Toolkit for server state synchronization and client data consistency.
+              Structured relational schemas, indexing, and transactional data integrity with PostgreSQL &amp; MySQL.
             </p>
           </div>
 
           <div className="point-card">
             <div className="point-title">
-              <Code2 size={16} color="var(--accent-amber)" />
-              <span>Production Optimization</span>
+              <Layers size={16} color="var(--accent-amber)" />
+              <span>Server-State Caching</span>
             </div>
             <p className="point-sub">
-              Code splitting, dynamic lazy loading, and targeted memoization preventing expensive unnecessary recalculations.
+              React Query and Redux Toolkit managing client state, background invalidation, and fast UI reactivity.
             </p>
           </div>
         </div>

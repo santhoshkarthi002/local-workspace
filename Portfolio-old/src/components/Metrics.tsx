@@ -45,7 +45,7 @@ export const Metrics: React.FC = () => {
             <span>Core Engineering Competencies & Strengths</span>
           </h2>
           <p style={{ marginTop: '4px', fontSize: '0.92rem' }}>
-            Proven strengths identified across 3+ years of enterprise frontend engineering
+            Proven strengths identified across 3+ years of enterprise full stack and frontend engineering
           </p>
         </div>
 

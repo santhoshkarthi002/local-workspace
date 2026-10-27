@@ -77,6 +77,26 @@
 }
 
 /* Location and contact bar */
+.hero-stack-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-stack-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-purple);
+}
+
+.hero-stack-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .hero-meta-bar {
   display: flex;
   flex-wrap: wrap;

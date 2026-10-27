@@ -4,8 +4,6 @@ export interface ExperienceItem {
   company: string;
   location: string;
   period: string;
-  startDate: string;
-  endDate: string;
   isCurrent?: boolean;
   type: 'Full-time' | 'Traineeship';
   summary: string;
@@ -13,12 +11,14 @@ export interface ExperienceItem {
   techStack: string[];
 }
 
-export interface SkillItem {
-  name: string;
-  level: number; // 1-100
-  category: 'frameworks' | 'languages' | 'styling' | 'state' | 'dataviz' | 'tools';
-  isKeySpecialization?: boolean;
-  tag?: string;
+export interface SkillCategory {
+  id: string;
+  label: string;
+  skills: {
+    name: string;
+    tag?: string;
+    highlight?: boolean;
+  }[];
 }
 
 export interface ProjectItem {
@@ -26,7 +26,10 @@ export interface ProjectItem {
   title: string;
   category: string;
   description: string;
-  longDescription: string;
+  problem: string;
+  solution: string;
+  role: string;
+  keyDecisions: string[];
   techStack: string[];
   highlights: string[];
   image: string;
@@ -39,225 +42,245 @@ export const resumeData = {
   personal: {
     name: "Karthikeyan G",
     preferredName: "Karthi",
-    tagline: "Front End Developer • React.js • SolidJS • TypeScript",
-    title: "Senior Frontend Engineer",
+    role: "Full Stack Developer",
+    eyebrow: "FULL STACK DEVELOPER · REACT · NODE.JS",
+    headline: "Building scalable web experiences with clean, thoughtful code.",
+    tagline: "React.js • TypeScript • Node.js • Express.js • PostgreSQL • MySQL",
+    bio: "I'm Karthikeyan, a Full Stack Developer focused on building responsive interfaces, reliable backend services, and user-friendly web applications.",
+    aboutDetailed: "With over 3+ years of professional engineering experience, I specialize in architecting modern web applications from frontend user interfaces to reliable backend APIs and relational database structures. My approach combines clean, maintainable TypeScript code with thoughtful UI/UX and solid engineering principles.",
     experienceYears: "3+",
-    phone: "+91 9092314029",
-    email: "santhoshkarthisk005@gmail.com",
-    location: "Tiruppur, Tamil Nadu, India",
-    availability: "Available for new opportunities",
-    bio: "Dedicated and detail-oriented Frontend Developer with over 3 years of professional experience, specializing in React.js and SolidJS. Passionate about crafting high-performance, accessible, and pixel-perfect web interfaces with modern reactive architectures.",
+    phone: "+91 8220932517",
+    email: "Karthikeyan.g14299@gmail.com",
+    location: "Coimbatore, Tamil Nadu, India",
+    linkedin: "https://linkedin.com/in/karthikeyan-g",
+    github: "https://github.com/karthikeyan-g",
     coreStrengths: [
-      "Dynamic, responsive, and high-performance web applications",
-      "Pixel-perfect UI implementation & Design Systems",
-      "Fine-grained reactive state management (SolidJS & React)",
-      "RESTful API integration & server-state caching",
-      "Clean, scalable TypeScript code & architecture",
-      "Performance optimization, code-splitting & memoization"
+      "Responsive, user-friendly frontend interfaces with React & TypeScript",
+      "Robust RESTful API design & integration using Node.js & Express.js",
+      "Relational database modeling & optimization with PostgreSQL & MySQL",
+      "Reusable, component-driven UI architecture & design systems",
+      "Server-state synchronization, caching & fine-grained reactivity",
+      "Cross-functional collaboration with designers, QA, and product teams"
     ]
   },
 
   stats: [
-    { label: "Years Experience", value: "3+", suffix: "" },
-    { label: "Production Companies", value: "4", suffix: "" },
-    { label: "Key Tech Stacks", value: "15+", suffix: "" },
-    { label: "UI Fidelity & Performance", value: "100%", suffix: "" }
+    { label: "Engineering Experience", value: "3+", suffix: " Years" },
+    { label: "Core Tech Stacks", value: "6+", suffix: " Domains" },
+    { label: "Production Companies", value: "3", suffix: " Verified" },
+    { label: "Engineering Focus", value: "100%", suffix: " Clean Code" }
   ],
 
-  skillsCategories: [
-    { id: 'all', label: 'All Skills' },
-    { id: 'frameworks', label: 'Frameworks & Libs' },
-    { id: 'languages', label: 'Languages' },
-    { id: 'styling', label: 'UI & Styling' },
-    { id: 'state', label: 'State & API' },
-    { id: 'dataviz', label: 'Data Visualization' },
-    { id: 'tools', label: 'Tools & Workflow' }
-  ],
-
-  skills: [
-    // Frameworks
-    { name: "React.js", level: 95, category: "frameworks", isKeySpecialization: true, tag: "Primary" },
-    { name: "SolidJS", level: 90, category: "frameworks", isKeySpecialization: true, tag: "Specialized" },
-    { name: "Next.js (Basics)", level: 75, category: "frameworks", isKeySpecialization: false, tag: "SSR/SSG" },
-    { name: "React Hook Form", level: 92, category: "frameworks", isKeySpecialization: false, tag: "Forms" },
-
-    // Languages
-    { name: "TypeScript", level: 92, category: "languages", isKeySpecialization: true, tag: "Core" },
-    { name: "JavaScript (ES6+)", level: 95, category: "languages", isKeySpecialization: true, tag: "Core" },
-    { name: "HTML5 & Semantic Web", level: 95, category: "languages", isKeySpecialization: false, tag: "Structure" },
-
-    // UI & Styling
-    { name: "CSS3 / Modern CSS", level: 94, category: "styling", isKeySpecialization: false, tag: "Styling" },
-    { name: "Material UI (MUI)", level: 88, category: "styling", isKeySpecialization: false, tag: "Components" },
-    { name: "Tailwind CSS", level: 88, category: "styling", isKeySpecialization: false, tag: "Utility" },
-    { name: "Bootstrap", level: 85, category: "styling", isKeySpecialization: false, tag: "Responsive" },
-
-    // State & API
-    { name: "Redux Toolkit (RTK)", level: 90, category: "state", isKeySpecialization: false, tag: "State" },
-    { name: "React Query (TanStack)", level: 89, category: "state", isKeySpecialization: false, tag: "Caching" },
-    { name: "RESTful APIs Integration", level: 94, category: "state", isKeySpecialization: false, tag: "Networking" },
-    { name: "SolidJS Signals & Stores", level: 90, category: "state", isKeySpecialization: true, tag: "Reactivity" },
-
-    // Data Viz
-    { name: "Apache ECharts", level: 86, category: "dataviz", isKeySpecialization: false, tag: "IoT / Charts" },
-    { name: "Recharts", level: 88, category: "dataviz", isKeySpecialization: false, tag: "Analytics" },
-
-    // Tools
-    { name: "Git & GitHub", level: 92, category: "tools", isKeySpecialization: false, tag: "VCS" },
-    { name: "GitLab", level: 85, category: "tools", isKeySpecialization: false, tag: "CI/CD" },
-    { name: "VS Code & Chrome DevTools", level: 95, category: "tools", isKeySpecialization: false, tag: "Dev Tools" },
-    { name: "Vite & Modern Bundlers", level: 90, category: "tools", isKeySpecialization: false, tag: "Tooling" }
-  ] as SkillItem[],
+  skillCategories: [
+    {
+      id: "frontend",
+      label: "Frontend",
+      skills: [
+        { name: "React.js", tag: "Primary", highlight: true },
+        { name: "TypeScript", tag: "Core", highlight: true },
+        { name: "JavaScript (ES6+)", tag: "Core", highlight: true },
+        { name: "React Native", tag: "Mobile" },
+        { name: "HTML5", tag: "Semantic" },
+        { name: "CSS3", tag: "Styling" },
+        { name: "Tailwind CSS", tag: "Utility-First", highlight: true },
+        { name: "Material UI", tag: "Components" },
+        { name: "Bootstrap", tag: "Responsive" }
+      ]
+    },
+    {
+      id: "backend",
+      label: "Backend",
+      skills: [
+        { name: "Node.js", tag: "Runtime", highlight: true },
+        { name: "Express.js", tag: "API Framework", highlight: true },
+        { name: "Django REST Framework", tag: "Python Backend" }
+      ]
+    },
+    {
+      id: "databases",
+      label: "Databases",
+      skills: [
+        { name: "PostgreSQL", tag: "Relational", highlight: true },
+        { name: "MySQL", tag: "Relational", highlight: true }
+      ]
+    },
+    {
+      id: "state",
+      label: "State & Data Fetching",
+      skills: [
+        { name: "Redux Toolkit", tag: "Global State", highlight: true },
+        { name: "Zustand", tag: "Lightweight State" },
+        { name: "React Query", tag: "Server State Cache", highlight: true }
+      ]
+    },
+    {
+      id: "dataviz",
+      label: "APIs & Data Visualization",
+      skills: [
+        { name: "REST APIs", tag: "Architecture", highlight: true },
+        { name: "Apache ECharts", tag: "Telemetry Charts", highlight: true },
+        { name: "Recharts", tag: "React Analytics" }
+      ]
+    },
+    {
+      id: "tools",
+      label: "Tools & Version Control",
+      skills: [
+        { name: "Git", tag: "VCS", highlight: true },
+        { name: "GitHub", tag: "Collaboration", highlight: true },
+        { name: "GitLab", tag: "CI/CD & Repos" },
+        { name: "Visual Studio Code", tag: "IDE" }
+      ]
+    }
+  ] as SkillCategory[],
 
   experiences: [
     {
       id: "praxio",
-      role: "Front End Developer",
-      company: "Praxio",
-      location: "Tiruppur / Remote",
-      period: "July 2022 – Present",
-      startDate: "Jul 2022",
-      endDate: "Present",
+      role: "Full Stack Developer",
+      company: "Praxio IT Consulting Pvt. Ltd.",
+      location: "Coimbatore / Remote",
+      period: "2024 – Present",
       isCurrent: true,
       type: "Full-time",
-      summary: "Spearheading modern frontend engineering initiatives using React.js and SolidJS to deliver highly responsive, modular, and performance-tuned enterprise web solutions.",
+      summary: "Leading full-stack and modern frontend engineering initiatives using React.js, TypeScript, and Node.js to deliver scalable, high-performing web applications.",
       achievements: [
-        "Develop, architect, and maintain scalable web applications utilizing React.js and SolidJS reactive paradigms.",
-        "Collaborate seamlessly with cross-functional teams including UI/UX designers, backend engineers, and product managers.",
-        "Engineered modular, reusable component libraries integrated with RESTful backend microservices.",
-        "Dramatically reduced load times and memory overhead via route lazy loading, asset optimization, and selective memoization.",
-        "Drive agile frontend development with sprint planning, daily standups, and retrospective technical reviews."
+        "Develop and maintain responsive web applications using React.js and TypeScript.",
+        "Refactor existing code to improve readability, maintainability, and runtime performance.",
+        "Build reusable UI components and improve frontend state management architectures.",
+        "Collaborate with backend developers to integrate APIs and improve data handling.",
+        "Work closely with designers, QA engineers, and product managers to deliver features on schedule.",
+        "Debug complex production issues and optimize application performance."
       ],
-      techStack: ["React.js", "SolidJS", "TypeScript", "React Query", "Redux Toolkit", "Material UI", "REST APIs"]
+      techStack: ["React.js", "TypeScript", "Node.js", "Express.js", "PostgreSQL", "REST APIs", "Tailwind CSS"]
     },
     {
       id: "enthu",
-      role: "Front End Developer",
-      company: "Enthu Technology Solutions India Pvt Ltd",
-      location: "Coimbatore / Tamil Nadu",
-      period: "March 2022 – June 2022",
-      startDate: "Mar 2022",
-      endDate: "Jun 2022",
+      role: "Software Developer",
+      company: "Enthu Technology Solutions India Pvt. Ltd.",
+      location: "Coimbatore, Tamil Nadu",
+      period: "2022 – 2024",
       isCurrent: false,
       type: "Full-time",
-      summary: "Developed mission-critical IoT telemetry dashboards and responsive web portals delivering real-time sensory data streams and role-based administration.",
+      summary: "Developed mission-critical web interfaces and interactive IoT dashboards delivering real-time sensory data streams, charts, and user management modules.",
       achievements: [
-        "Created interactive, high-density IoT dashboards featuring real-time data visualizations with Apache ECharts and Recharts.",
-        "Designed and implemented robust user management and role-based access control (RBAC) frontend flows.",
-        "Delivered pixel-perfect interfaces aligned strictly with enterprise design system specifications.",
-        "Optimized frontend runtime efficiency and network payload handling for live-updating sensor streams."
+        "Develop responsive web interfaces and interactive IoT dashboards with high telemetry density.",
+        "Build data visualization components using Apache ECharts and Recharts for live sensory metrics.",
+        "Implement robust user management and role-based access control frontend flows.",
+        "Collaborate seamlessly with backend developers and UI/UX designers to align on specifications.",
+        "Develop reusable UI components, integrate REST APIs, and resolve application defects."
       ],
-      techStack: ["React.js", "Apache ECharts", "Recharts", "REST APIs", "JavaScript (ES6+)", "CSS3", "Git"]
+      techStack: ["React.js", "JavaScript (ES6+)", "Apache ECharts", "Recharts", "REST APIs", "CSS3", "Git"]
     },
     {
       id: "abytz",
-      role: "Front End Developer Trainee",
-      company: "Abytz Technology Solutions India Pvt Ltd",
-      location: "Tamil Nadu",
+      role: "Frontend Developer Trainee",
+      company: "Abytz Technology Solutions India Pvt. Ltd.",
+      location: "Tamil Nadu, India",
       period: "December 2021 – March 2022",
-      startDate: "Dec 2021",
-      endDate: "Mar 2022",
       isCurrent: false,
       type: "Traineeship",
-      summary: "Accelerated React.js production proficiency through hands-on feature development, bug triage, and enterprise coding standard mastery.",
+      summary: "Strengthened frontend engineering practices through active code contributions, component maintenance, and feature enhancements on React.js applications.",
       achievements: [
-        "Maintained and enhanced feature modules across active client React.js web applications.",
-        "Diagnosed edge-case bugs and implemented tested solutions under senior engineer supervision.",
-        "Applied component lifecycle management, hook patterns, prop drilling mitigations, and basic Redux state patterns.",
-        "Absorbed clean architecture standards, Git branch workflows, and responsive UI methodologies."
+        "Maintain and enhance React.js applications across client-facing modules.",
+        "Fix UI bugs, improve responsive behaviors, and implement feature enhancements.",
+        "Collaborate with QA engineers to validate cross-browser functionality and responsive layouts.",
+        "Work with senior developers on requirements breakdown, code reviews, and coding standards."
       ],
-      techStack: ["React.js", "Redux", "JavaScript", "HTML5", "CSS3", "Chrome DevTools"]
-    },
-    {
-      id: "aja",
-      role: "Software Developer Trainee",
-      company: "Aja Technologiess Pvt Ltd",
-      location: "Tamil Nadu",
-      period: "October 2020 – January 2021",
-      startDate: "Oct 2020",
-      endDate: "Jan 2021",
-      isCurrent: false,
-      type: "Traineeship",
-      summary: "Built foundational web development expertise spanning full-stack paradigms, server-side scripting, relational databases, and debugging.",
-      achievements: [
-        "Participated actively in programming, testing, and debugging server-rendered web applications.",
-        "Learned PHP-based web development, MVC architecture principles, and SQL database interactions.",
-        "Collaborated under experienced senior software engineers to comprehend full development lifecycle processes."
-      ],
-      techStack: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3"]
+      techStack: ["React.js", "JavaScript", "HTML5", "CSS3", "Git", "Chrome DevTools"]
     }
   ] as ExperienceItem[],
 
   projects: [
     {
       id: "iot-dashboard",
-      title: "IoT Telemetry & Industrial Analytics Dashboard",
-      category: "Real-Time Systems & Data Viz",
-      description: "High-density real-time monitoring interface for IoT device networks, featuring Apache ECharts telemetry, sensor alerts, and RBAC authentication.",
-      longDescription: "Engineered for industrial IoT deployments, this dashboard visualizes real-time metrics across hundreds of active gateway devices. Implemented Apache ECharts for sub-second sensor curves, automated threshold alert notifications, and granular role-based access for operations engineers.",
-      techStack: ["React.js", "Apache ECharts", "Recharts", "REST APIs", "WebSocket", "Tailwind CSS"],
+      title: "IoT Dashboard and Data Visualization",
+      category: "Real-Time Telemetry & Data Viz",
+      description: "Interactive real-time IoT monitoring interface featuring telemetry charting, sensory alerts, and device health metrics.",
+      problem: "Industrial IoT systems emit continuous sensor telemetry that easily overwhelms standard UI tables and charts, causing dropped frames and lag.",
+      solution: "Engineered a responsive dashboard using React.js and Apache ECharts with sampled data buffering, giving operators smooth sub-second telemetry feeds.",
+      role: "Full Stack / Frontend Engineer: Built visualization widgets, device status indicators, and REST telemetry endpoints.",
+      keyDecisions: [
+        "Chose Apache ECharts for canvas-based hardware-accelerated rendering on large data points",
+        "Decoupled telemetry updates from global state to isolate DOM re-renders",
+        "Implemented resilient REST polling with backoff handling during network instability"
+      ],
+      techStack: ["React.js", "TypeScript", "Apache ECharts", "Recharts", "REST APIs", "Tailwind CSS"],
       highlights: [
-        "Sub-100ms real-time metric updates with zero visual stutter",
-        "Configurable date range filters and CSV/PDF export capability",
-        "Role-Based Access Control (RBAC) securing sensitive controls",
-        "Responsive glassmorphic UI matching high-end industrial telemetry standards"
+        "Sub-100ms real-time chart updates without UI stutter",
+        "Configurable multi-range telemetry filters (1h, 24h, 7d, 30d)",
+        "Device status tracking & threshold-based alert badges"
       ],
       image: "iot_dashboard.jpg",
       featured: true
     },
     {
-      id: "aurora-design-system",
-      title: "Aurora Reactive Enterprise UI & Component Engine",
-      category: "Design System & Fine-Grained Reactivity",
-      description: "Comprehensive React and SolidJS component library built for high-throughput enterprise SaaS applications with zero unnecessary re-renders.",
-      longDescription: "A dual-framework component architecture developed to compare and leverage the best of React hooks and SolidJS fine-grained reactivity. Features reusable datatables, accessible modals, responsive charts, and custom form inputs powered by React Hook Form.",
-      techStack: ["React.js", "SolidJS", "TypeScript", "React Hook Form", "CSS Variables", "Redux Toolkit"],
-      highlights: [
-        "Over 30+ production-ready accessible UI primitives",
-        "Fine-grained reactive signals in SolidJS avoiding virtual DOM overhead",
-        "Strict TypeScript typing across all component props and slots",
-        "Integrated dark and light theme token architecture"
+      id: "fullstack-webapp",
+      title: "Full Stack Web Application",
+      category: "Full Stack & Backend Services",
+      description: "Comprehensive web platform featuring secure authentication, RESTful service layers, and relational PostgreSQL persistence.",
+      problem: "Businesses require centralized management workflows that ensure data integrity, role-based security, and fast transactional responses.",
+      solution: "Designed and implemented an end-to-end full stack architecture pairing a reactive React frontend with Express.js APIs and relational PostgreSQL models.",
+      role: "Full Stack Developer: Designed database schema, built REST controllers, and created responsive user management interfaces.",
+      keyDecisions: [
+        "Modeled normalized relational tables with indexing on high-frequency lookup keys",
+        "Constructed JWT-based authentication with secure cookie handling and token refresh",
+        "Applied comprehensive API request validation schemas to prevent bad payloads"
       ],
-      image: "design_system.jpg",
+      techStack: ["React.js", "TypeScript", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
+      highlights: [
+        "Complete CRUD architecture with transaction safety and relational integrity",
+        "Role-Based Access Control (Admin, Manager, Member) across all endpoints",
+        "Responsive, accessible UI with optimistic data updates"
+      ],
+      image: "fullstack_app.jpg",
       featured: true
     },
     {
-      id: "dynamic-form-engine",
-      title: "Enterprise Multi-Step Form & Validation Suite",
-      category: "Form Architecture & State Management",
-      description: "Performant, schema-driven multi-step wizard supporting complex conditional fields, draft caching, and asynchronous validation.",
-      longDescription: "Eliminated client-side form performance bottlenecks by pairing React Hook Form with TanStack Query caching. Built to handle enterprise workflows with 50+ fields, dynamic array fields, nested validation rules, and offline autosave recovery.",
-      techStack: ["React.js", "React Hook Form", "TypeScript", "React Query", "Material UI"],
+      id: "api-management-platform",
+      title: "API-Driven Management Platform",
+      category: "Enterprise System & Integration",
+      description: "High-throughput operational platform built for fast querying, multi-entity relationships, and relational MySQL data stores.",
+      problem: "Enterprise teams struggled with disparate API endpoints, manual synchronization, and slow data tables that hindered daily workflows.",
+      solution: "Built a centralized management platform leveraging React Query for robust caching, optimistic UI states, and structured MySQL relational schemas.",
+      role: "Full Stack Developer: Integrated third-party REST services, optimized SQL queries, and engineered filterable data tables.",
+      keyDecisions: [
+        "Adopted React Query to handle caching, background deduplication, and stale-while-revalidate fetching",
+        "Optimized MySQL JOIN queries and pagination to maintain sub-50ms query response times",
+        "Engineered custom reusable data tables with client-side sorting and multi-column filtering"
+      ],
+      techStack: ["React.js", "TypeScript", "Node.js", "MySQL", "React Query", "Material UI"],
       highlights: [
-        "Uncontrolled inputs minimizing component re-renders to near zero",
-        "Local state persistence preventing accidental data loss during multi-step surveys",
-        "Accessible keyboard navigation and screen-reader compliant alerts",
-        "Seamless RESTful API submission with optimistic UI states"
+        "Server-state caching cutting unnecessary network requests by over 60%",
+        "Complex multi-filter queries with server-side pagination",
+        "Zero-layout-shift responsive table design"
       ],
       image: "design_system.jpg",
-      featured: false
+      featured: true
     }
   ] as ProjectItem[],
 
   education: {
-    degree: "B.Tech – Information Technology",
+    degree: "B.Tech in Information Technology",
     institution: "Anna University",
-    location: "Erode, Tamil Nadu",
-    period: "June 2016 – April 2020",
-    grade: "CGPA: 6.58 / 10.0",
-    description: "Solid academic foundation in Data Structures, Object-Oriented Programming, Web Technologies, Database Management Systems, and Software Engineering methodologies."
+    location: "Erode, Tamil Nadu, India",
+    period: "2016 – 2020",
+    grade: "CGPA: 6.58 / 10",
+    highlights: [
+      "Core coursework: Data Structures, Algorithms, Object-Oriented Programming, Database Management Systems, Web Technologies, Computer Networks",
+      "Final Year Project focused on web-based information systems and database operations",
+      "Active participant in technical symposiums and university coding events"
+    ]
   },
 
   contact: {
-    email: "santhoshkarthisk005@gmail.com",
-    phone: "9092314029",
-    displayPhone: "+91 90923 14029",
-    location: "Tiruppur, Tamil Nadu, India",
-    timeZone: "IST (UTC+5:30)",
-    socials: [
-      { name: "GitHub", url: "https://github.com", icon: "Github" },
-      { name: "LinkedIn", url: "https://linkedin.com", icon: "Linkedin" },
-      { name: "Email", url: "mailto:santhoshkarthisk005@gmail.com", icon: "Mail" }
-    ]
+    heading: "Have a project in mind? Let's connect.",
+    description: "I'm interested in discussing web development, engineering challenges, and opportunities to build useful digital products.",
+    email: "Karthikeyan.g14299@gmail.com",
+    phone: "+91 8220932517",
+    location: "Coimbatore, Tamil Nadu, India",
+    availability: "Open to discussions and new opportunities",
+    linkedin: "https://linkedin.com/in/karthikeyan-g",
+    github: "https://github.com/karthikeyan-g"
   }
 };
