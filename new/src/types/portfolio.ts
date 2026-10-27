@@ -1,6 +1,8 @@
 export interface PersonalInfo {
   name: string;
   role: string;
+  logo: string;
+  photo?: string;
   eyebrow: string;
   headline: string;
   description: string;
@@ -44,8 +46,18 @@ export interface PersonalInfo {
   }>;
 }
 
+export type SkillCategoryKey =
+  | 'frontend'
+  | 'backend'
+  | 'database'
+  | 'state'
+  | 'visualization'
+  | 'tools'
+  | string;
+
 export interface SkillItem {
   name: string;
+  category: SkillCategoryKey;
   isPrimary?: boolean;
 }
 
